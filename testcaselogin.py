@@ -10,7 +10,7 @@ class LoginTest(unittest.TestCase):
     user_type = ''
 
     def test_login(self):
-        self.driver = webdriver.Chrome('Q:\\Users\\bwaite\\Drivers\\chromedriver.exe')
+        self.driver = webdriver.Chrome('Q:\\Projects\\Selenium\\Drivers\\chromedriver.exe')
         #self.driver = webdriver.Chrome('C:\\Users\\bwaite\\Drivers\\geckodriver.exe')
         #self.driver.get("https://openrecords-test.appdev.records.nycnet/")
         self.driver.get("https://a860-openrecords.csc.nycnet/")
