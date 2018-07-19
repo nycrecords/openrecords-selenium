@@ -1,6 +1,7 @@
 from searchtest import SearchTest
 from selenium.webdriver.common.keys import Keys
 import time
+import nypdrequest
 
 # date submitted, date due, date closed variable
 date_from = "10/19/2017"
@@ -17,10 +18,25 @@ s_due = "FOIL-2018-860-00002"
 s_closed = "FOIL-2018-860-00009"
 
 
+"""
+requestinfo is a python dictionary in the format
+
+{'FOIL':'',
+'Agency':agency, 
+'Title':title,
+'Description':description}
+
+from nypdrequestfun where the information is the information that created the request
+"""
+
+
+requestinfo = ''
+
 class RequestPage(SearchTest):
     def __init__(self, driver):
         super().__init__()
         self.driver = driver
+        requestinfo = nypdrequest.nypdrequest(self.driver).nypdrequestfun(self.user_type)
 
     # search by FOIL ID
     def search_foil_id(self, user_type):
@@ -29,26 +45,26 @@ class RequestPage(SearchTest):
             time.sleep(.25)
             self.driver.find_element_by_name("foil_id").click()
             time.sleep(.25)
-            self.driver.find_element_by_id("query").send_keys(s_foil_id)
+            self.driver.find_element_by_id("query").send_keys(requestinfo['FOIL'])
             time.sleep(.25)
             self.driver.find_element_by_id("search").send_keys(Keys.ENTER)
             time.sleep(.25)
             self.driver.execute_script("window.scrollTo(0,500)")
             time.sleep(.25)
-            self.driver.find_element_by_partial_link_text(s_foil_id).click()
+            self.driver.find_element_by_partial_link_text(requestinfo['FOIL']).click()
             time.sleep(.25)
             self.assertTrue(self.driver.find_element_by_class_name("request-label"))
             time.sleep(.25)
         else:
             self.driver.find_element_by_link_text("Search Requests").click()
             time.sleep(.25)
-            self.driver.find_element_by_id("query").send_keys(s_foil_id)
+            self.driver.find_element_by_id("query").send_keys(requestinfo['FOIL'])
             time.sleep(.25)
             self.driver.find_element_by_id("search").send_keys(Keys.ENTER)
             time.sleep(.25)
             self.driver.execute_script("window.scrollTo(0,500)")
             time.sleep(.25)
-            self.driver.find_element_by_partial_link_text(s_foil_id).click()
+            self.driver.find_element_by_partial_link_text(requestinfo['FOIL']).click()
             time.sleep(.25)
             self.assertTrue(self.driver.find_element_by_class_name("request-label"))
             time.sleep(.25)
@@ -58,23 +74,27 @@ class RequestPage(SearchTest):
             time.sleep(.25)
             self.driver.find_element_by_name("foil_id").click()
             time.sleep(.25)
-            self.driver.find_element_by_id("query").send_keys(s_foil_id)
+            self.driver.find_element_by_id("query").send_keys(requestinfo['FOIL'])
             time.sleep(.25)
             self.driver.find_element_by_id("search").send_keys(Keys.ENTER)
             time.sleep(.25)
             self.driver.execute_script("window.scrollTo(0,500)")
             time.sleep(.25)
-            self.driver.find_element_by_partial_link_text(s_foil_id).click()
+            self.driver.find_element_by_partial_link_text(requestinfo['FOIL']).click()
             time.sleep(.25)
             self.assertTrue(self.driver.find_element_by_class_name("request-label"))
             time.sleep(.25)
 
     # search by Title
     def search_title(self, user_type):
+
+        requestinfo = nypdrequest.nypdrequest(self.driver).nypdrequestfun(self.user_type)
+
+
         if user_type == "admin" or user_type == "user":
             self.driver.find_element_by_link_text("Search Requests").click()
             time.sleep(.25)
-            self.driver.find_element_by_id("query").send_keys("same title")
+            self.driver.find_element_by_id("query").send_keys(requestinfo['Title'])
             time.sleep(.25)
             self.driver.find_element_by_id("search").send_keys(Keys.ENTER)
             time.sleep(.25)
@@ -82,9 +102,24 @@ class RequestPage(SearchTest):
             time.sleep(.25)
             self.driver.find_element_by_partial_link_text(s_title).click()
             time.sleep(.25)
+        else:
+            self.driver.find_element_by_link_text("Search Requests").click()
+            time.sleep(.25)
+            self.driver.find_element_by_id("query").send_keys(requestinfo['Title'])
+            time.sleep(.25)
+            self.driver.find_element_by_id("search").send_keys(Keys.ENTER)
+            time.sleep(.25)
+            self.driver.execute_script("window.scrollTo(0,500)")
+            time.sleep(.25)
+            self.driver.find_element_by_partial_link_text(requestinfo['Title']).click()
+            time.sleep(.25)
 
     #search by Description
     def search_description(self, user_type):
+
+        requestinfo = nypdrequest.nypdrequest(self.driver).nypdrequestfun(self.user_type)
+
+
         if user_type == "admin" or user_type == "user":
             self.driver.find_element_by_link_text("Search Requests").click()
             time.sleep(.25)
@@ -92,13 +127,13 @@ class RequestPage(SearchTest):
             time.sleep(.25)
             self.driver.find_element_by_name("description").click()
             time.sleep(.25)
-            self.driver.find_element_by_id("query").send_keys("blueberry")
+            self.driver.find_element_by_id("query").send_keys(requestinfo['Description'])
             time.sleep(.25)
             self.driver.find_element_by_id("search").send_keys(Keys.ENTER)
             time.sleep(.25)
             self.driver.execute_script("window.scrollTo(0,500)")
             time.sleep(.25)
-            self.driver.find_element_by_partial_link_text(s_desc).click()
+            self.driver.find_element_by_partial_link_text(requestinfo['Description']).click()
             time.sleep(.25)
             self.assertTrue(self.driver.find_element_by_class_name("request-label"))
             time.sleep(.25)

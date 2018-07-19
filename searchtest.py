@@ -10,7 +10,8 @@ class SearchTest(unittest.TestCase):
     user_type = ''
 
     def test_login(self):
-        self.driver = webdriver.Chrome('C:\\Users\\bwaite\\Drivers\\chromedriver.exe')
+        #self.driver = webdriver.Chrome('C:\\Users\\bwaite\\Drivers\\chromedriver.exe')
+        self.driver = webdriver.Chrome('/Users/bzhuang/Downloads/chromedriver')
         self.driver.get("https://openrecords-test.appdev.records.nycnet/")
         #self.driver.get("https://a860-openrecords.csc.nycnet/")
 
@@ -19,7 +20,8 @@ class SearchTest(unittest.TestCase):
 
         search = searchrequestpage.RequestPage(self.driver)
         search.search_foil_id(self.user_type)
-        search.search_closed_date(self.user_type)
+        #search.search_title(self.user_type)
+        #search.search_closed_date(self.user_type)
 
         logout = logoutpage.LogoutPage(self.driver)
         logout.logout(self.user_type)
