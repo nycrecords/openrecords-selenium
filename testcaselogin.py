@@ -7,6 +7,9 @@ import sys
 import nypdrequest
 import time
 import publicrequestpage
+import contactagency
+import techsupport
+import manageresponses
 
 
 class LoginTest(unittest.TestCase):
@@ -23,15 +26,23 @@ class LoginTest(unittest.TestCase):
         time.sleep(1)
 
     
-        #request = requestrecordpage.RequestPage(self.driver)
-        #request.request(self.user_type)
+        # request = requestrecordpage.RequestPage(self.driver)
+        # request.request(self.user_type)
         
         # request = publicrequestpage.RequestPage(self.driver)
         # request.agency_request(self.user_type)
 
-        request = nypdrequest.nypdrequest(self.driver)
-        request.nypdrequestfun(self.user_type)
+        # request = nypdrequest.nypdrequest(self.driver)
+        # request.nypdrequestfun(self.user_type)
 
+        # contact = contactagency.ContactAgency(self.driver)
+        # contact.contact(self.user_type)
+
+        # techsup = techsupport.TechSupport(self.driver)
+        # techsup.techsupport(self.user_type)
+        
+        # users = manageresponses.Responses(self.driver)
+        # users.responses(self.user_type)
 
         logout = logoutpage.LogoutPage(self.driver)
         logout.logout(self.user_type)
